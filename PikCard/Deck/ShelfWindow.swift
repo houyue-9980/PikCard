@@ -183,9 +183,6 @@ struct DeckSettingsSheet: View {
     @Environment(Library.self) private var library
     @Environment(\.dismiss) private var dismiss
 
-    private static let emojis = ["📘", "📗", "📕", "📙", "🧠", "🔤", "🌏", "🧮", "🧪", "🧬", "📐", "💊",
-                                 "⚖️", "🎵", "🎨", "💻", "🏛️", "🗣️", "✏️", "⭐️", "🍎", "🌱", "🚀", "🐱"]
-
     var body: some View {
         VStack(alignment: .leading, spacing: 16) {
             Text(deck == nil ? L("新建卡组", "New Deck") : L("改名字和图标", "Rename & Icon")).font(.title3.weight(.semibold))
@@ -193,27 +190,11 @@ struct DeckSettingsSheet: View {
                 RoundedRectangle(cornerRadius: 18).fill(color.color)
                     .frame(width: 84, height: 84)
                     .overlay(Text(emoji).font(.system(size: 42)))
-                VStack(alignment: .leading, spacing: 10) {
+                    .pikAnimation(Motion.quick, value: color)
+                VStack(alignment: .leading, spacing: 14) {
                     TextField(L("名字", "Name"), text: $name).textFieldStyle(.roundedBorder)
-                    LazyVGrid(columns: Array(repeating: GridItem(.fixed(28), spacing: 4), count: 12), spacing: 4) {
-                        ForEach(Self.emojis, id: \.self) { e in
-                            Button(e) { emoji = e }
-                                .buttonStyle(.plain).font(.system(size: 20))
-                                .frame(width: 28, height: 28)
-                                .background(RoundedRectangle(cornerRadius: 6).fill(emoji == e ? Color.accentColor.opacity(0.2) : .clear))
-                        }
-                    }
-                    HStack(spacing: 6) {
-                        ForEach(TileColor.allCases, id: \.self) { c in
-                            Circle().fill(c.color).frame(width: 22, height: 22)
-                                .overlay(Circle().strokeBorder(c == color ? Color.accentColor : Color.black.opacity(0.1), lineWidth: c == color ? 2 : 1))
-                                .onTapGesture { color = c }
-                        }
-                        Spacer()
-                        TextField("", text: Binding(get: { emoji }, set: { if let c = $0.last { emoji = String(c) } }))
-                            .frame(width: 44).textFieldStyle(.roundedBorder)
-                            .help(L("也可以输入任意表情（⌃⌘空格 打开表情面板）", "Or type any emoji (⌃⌘Space opens the emoji picker)"))
-                    }
+                    // 最后的“…”：打开系统表情面板 / 颜色面板，选任意表情和颜色
+                    AppearancePicker(emoji: $emoji, color: $color)
                 }
             }
             if let error { Text(error).foregroundStyle(.red).font(.callout) }
@@ -226,7 +207,7 @@ struct DeckSettingsSheet: View {
             }
         }
         .padding(22)
-        .frame(width: 520)
+        .frame(width: 580)
         .onAppear {
             if let deck {
                 name = deck.name; emoji = deck.meta.emoji; color = deck.meta.color

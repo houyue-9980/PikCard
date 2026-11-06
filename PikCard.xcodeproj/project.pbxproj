@@ -15,6 +15,7 @@
 		16AFB20E6C9FCF3B0781D6F8 /* fse_decompress.c in Sources */ = {isa = PBXBuildFile; fileRef = FFAAC8B4B99854BC5A3389CA /* fse_decompress.c */; };
 		16D25DE7AA9D5303A125C22D /* PikCardApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD5BF01D464A1A829D29541B /* PikCardApp.swift */; };
 		1A1F3EAEDBAF027107CB58E0 /* debug.c in Sources */ = {isa = PBXBuildFile; fileRef = 4670BD5B2A43344F6BD4B301 /* debug.c */; };
+		1B8295FDF956026C51B90F6B /* AppearancePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04A71AC4902E24F2E7F66048 /* AppearancePicker.swift */; };
 		1F733054D83A9A73CAAF44C7 /* zstd_decompress_block.c in Sources */ = {isa = PBXBuildFile; fileRef = 671FBCDD79FDEAEACC17B1BB /* zstd_decompress_block.c */; };
 		239C83F8E2CD9E911041834E /* zstd_ddict.c in Sources */ = {isa = PBXBuildFile; fileRef = 9E9E4E536B1F25EDD0CCA53E /* zstd_ddict.c */; };
 		32E0CEF6369273E6E5A393B6 /* render in Resources */ = {isa = PBXBuildFile; fileRef = 7495C1BD3939C502878FFADC /* render */; };
@@ -65,6 +66,7 @@
 		01CE54A660D97A6550389C0B /* threading.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = threading.h; sourceTree = "<group>"; };
 		0395E02CD8843971168E4BB3 /* CardWebView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardWebView.swift; sourceTree = "<group>"; };
 		03E65D39771574D1B2C15D2C /* StudySettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudySettings.swift; sourceTree = "<group>"; };
+		04A71AC4902E24F2E7F66048 /* AppearancePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppearancePicker.swift; sourceTree = "<group>"; };
 		061BC978D9341CB57F65B1DA /* DeckView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeckView.swift; sourceTree = "<group>"; };
 		07B69C494D59C3888F0424D9 /* zstd_errors.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = zstd_errors.h; sourceTree = "<group>"; };
 		0843E415D503EEDCABB2F1CB /* Appearance.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Appearance.swift; sourceTree = "<group>"; };
@@ -137,6 +139,7 @@
 		247DCA798FE79CD5FD6C6875 /* Deck */ = {
 			isa = PBXGroup;
 			children = (
+				04A71AC4902E24F2E7F66048 /* AppearancePicker.swift */,
 				55355BA49AE827D68A391B02 /* CardEditor.swift */,
 				061BC978D9341CB57F65B1DA /* DeckView.swift */,
 				14E9423A7D0E6F2B91ADCEC2 /* ShelfWindow.swift */,
@@ -418,6 +421,7 @@
 			files = (
 				146898D5CE910758D0A14E20 /* Apkg.swift in Sources */,
 				D8EE6DAB89D0C7612FDFF510 /* Appearance.swift in Sources */,
+				1B8295FDF956026C51B90F6B /* AppearancePicker.swift in Sources */,
 				4EF2570CD44BE7ED8C202E06 /* Archive.swift in Sources */,
 				B4577A0A7BED7FDCCAAD6954 /* CardEditor.swift in Sources */,
 				9C6251E63BD4F65824734A4D /* CardFile.swift in Sources */,

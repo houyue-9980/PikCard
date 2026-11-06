@@ -17,6 +17,7 @@ struct PikCardApp: App {
                 .onAppear { delegate.library = library }
         }
         .defaultSize(width: 860, height: 580)
+        .defaultLaunchBehavior(.presented) // 每次打开都先显示书架
         .commands { AppCommands(library: library) }
 
         // 卡组窗口：每个卡组一个，同一个卡组再点会回到已经打开的窗口
@@ -27,6 +28,8 @@ struct PikCardApp: App {
             }
         }
         .defaultSize(width: 900, height: 640)
+        // 打开软件时不自动弹出卡组窗口，也不恢复上次开着的卡组
+        .defaultLaunchBehavior(.suppressed)
         .restorationBehavior(.disabled)
 
         Settings {

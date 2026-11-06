@@ -1,4 +1,5 @@
-// 卡组图标的底色：8 种预设的浅色（和拾记书架一样），存成一个字符串，比如 "blue"。
+// 卡组图标的底色：8 种预设的浅色（和拾记书架一样），也可以是自己挑的任意颜色。
+// deck.json 里就是一个字符串："blue" 或 "#F2D7E0"
 import SwiftUI
 
 struct TileColor: Hashable, RawRepresentable, Codable {
@@ -21,9 +22,18 @@ struct TileColor: Hashable, RawRepresentable, Codable {
         "pink": (0.965, 0.890, 0.902), "gray": (0.933, 0.933, 0.949),
     ]
 
+    /// 是预设的那 8 种之一吗（不是就是自己挑的颜色）
+    var isPreset: Bool { Self.presets[rawValue] != nil }
+
     var color: Color {
-        let (r, g, b) = Self.presets[rawValue] ?? (0.933, 0.933, 0.949)
-        return Color(red: r, green: g, blue: b)
+        if let (r, g, b) = Self.presets[rawValue] { return Color(red: r, green: g, blue: b) }
+        return Color(hex: rawValue) ?? Color(red: 0.933, green: 0.933, blue: 0.949)
+    }
+
+    /// 自己挑的颜色
+    init?(custom color: Color) {
+        guard let hex = color.hexString else { return nil }
+        self.init(rawValue: hex)
     }
 
     init(from decoder: Decoder) throws {
@@ -38,5 +48,20 @@ struct TileColor: Hashable, RawRepresentable, Codable {
     static func stable(for name: String) -> TileColor {
         let sum = name.unicodeScalars.reduce(0) { $0 &+ Int($1.value) }
         return allCases[sum % allCases.count]
+    }
+}
+
+extension Color {
+    /// 颜色 → #RRGGBB
+    var hexString: String? {
+        guard let c = NSColor(self).usingColorSpace(.sRGB) else { return nil }
+        return String(format: "#%02X%02X%02X", Int(round(c.redComponent * 255)), Int(round(c.greenComponent * 255)), Int(round(c.blueComponent * 255)))
+    }
+
+    /// #RRGGBB → 颜色
+    init?(hex: String) {
+        let s = hex.trimmingCharacters(in: CharacterSet(charactersIn: "#"))
+        guard s.count == 6, let v = Int(s, radix: 16) else { return nil }
+        self.init(.sRGB, red: Double((v >> 16) & 0xFF) / 255, green: Double((v >> 8) & 0xFF) / 255, blue: Double(v & 0xFF) / 255)
     }
 }
