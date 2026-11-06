@@ -54,9 +54,9 @@ final class Library {
             at: rootURL, includingPropertiesForKeys: [.isDirectoryKey], options: [.skipsHiddenFiles])) ?? [])
             .filter { (try? $0.resourceValues(forKeys: [.isDirectoryKey]).isDirectory) == true }
             .map(\.standardizedFileURL)
-            .sorted { $0.lastPathComponent.localizedStandardCompare($1.lastPathComponent) == .orderedAscending }
+        let ordered = ShelfOrder.sorted(folders, by: ShelfOrder.load(root: rootURL).decks)
         let existing = Dictionary(decks.map { ($0.url, $0) }, uniquingKeysWith: { a, _ in a })
-        let updated = folders.map { url in
+        let updated = ordered.map { url in
             if let deck = existing[url] { deck.reloadFromDisk(); return deck }
             return Deck(url: url)
         }
@@ -105,8 +105,8 @@ final class Library {
     func createDeck(name: String, meta: DeckMeta, preamble: String = "", cards: [Card] = []) throws -> Deck {
         guard let url = freeURL(for: name) else { throw CocoaError(.fileNoSuchFile) }
         let deck = try Deck.create(at: url, meta: meta, preamble: preamble, cards: cards)
-        decks.append(deck)
-        decks.sort { $0.name.localizedStandardCompare($1.name) == .orderedAscending }
+        decks.append(deck) // 新卡组放在最后
+        saveOrder()
         return deck
     }
 
@@ -114,8 +114,30 @@ final class Library {
         let target = deck.url.deletingLastPathComponent().appendingPathComponent(Self.safeName(name), isDirectory: true)
         guard target != deck.url else { return deck.url }
         try FileManager.default.moveItem(at: deck.url, to: target)
+        // 顺序表里的名字跟着改，位置不变
+        if let rootURL {
+            var order = decks.map(\.name)
+            if let i = order.firstIndex(of: deck.name) { order[i] = target.lastPathComponent }
+            ShelfOrder.save(ShelfOrder(decks: order), root: rootURL)
+        }
         reload()
         return target
+    }
+
+    /// 拖动换位置：把 deck 放到 other 的前面（after = true 就是后面）
+    func move(_ deck: Deck, to other: Deck, after: Bool) {
+        guard deck.url != other.url else { return }
+        var list = decks.filter { $0.url != deck.url }
+        guard let i = list.firstIndex(where: { $0.url == other.url }) else { return }
+        list.insert(deck, at: after ? i + 1 : i)
+        decks = list
+        saveOrder()
+    }
+
+    /// 把现在的顺序存进 .pikcard/shelf.json
+    private func saveOrder() {
+        guard let rootURL else { return }
+        ShelfOrder.save(ShelfOrder(decks: decks.map(\.name)), root: rootURL)
     }
 
     /// 移到废纸篓（不直接删，在废纸篓里还能找回来）
@@ -134,4 +156,41 @@ final class Library {
     }
 
     var reviewedToday: Int { decks.reduce(0) { $0 + $1.today.reviewed } }
+}
+
+/// 卡组在书架上的顺序：存在卡片文件夹里的隐藏文件 .pikcard/shelf.json，跟着云盘同步。
+///
+///     { "decks": ["英语单词", "线性代数"] }
+///
+/// 没写进顺序的卡组（比如在访达里新建的），排在后面，按名字排。
+struct ShelfOrder: Codable {
+    var decks: [String] = []
+
+    static func fileURL(root: URL) -> URL { root.appendingPathComponent(".pikcard/shelf.json") }
+
+    static func load(root: URL) -> ShelfOrder {
+        (try? Data(contentsOf: fileURL(root: root))).flatMap { try? JSONDecoder().decode(ShelfOrder.self, from: $0) } ?? ShelfOrder()
+    }
+
+    static func save(_ order: ShelfOrder, root: URL) {
+        let url = fileURL(root: root)
+        try? FileManager.default.createDirectory(at: url.deletingLastPathComponent(), withIntermediateDirectories: true)
+        let encoder = JSONEncoder()
+        encoder.outputFormatting = [.prettyPrinted, .sortedKeys]
+        if let data = try? encoder.encode(order), data != (try? Data(contentsOf: url)) {
+            try? data.write(to: url, options: .atomic)
+        }
+    }
+
+    static func sorted(_ urls: [URL], by order: [String]) -> [URL] {
+        let index = Dictionary(order.enumerated().map { ($1, $0) }, uniquingKeysWith: { a, _ in a })
+        return urls.sorted { a, b in
+            switch (index[a.lastPathComponent], index[b.lastPathComponent]) {
+            case let (i?, j?): return i < j
+            case (_?, nil): return true
+            case (nil, _?): return false
+            default: return a.lastPathComponent.localizedStandardCompare(b.lastPathComponent) == .orderedAscending
+            }
+        }
+    }
 }

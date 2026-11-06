@@ -168,3 +168,14 @@ struct SchedulerTests {
         #expect(StudyDay.streak(days: days, today: morning) == 3)
     }
 }
+
+struct ShelfOrderTests {
+    @Test func sortsByOrderThenName() throws {
+        let root = FileManager.default.temporaryDirectory.appendingPathComponent("pikcard-order-\(UUID().uuidString)")
+        ShelfOrder.save(ShelfOrder(decks: ["线性代数", "英语"]), root: root)
+        let order = ShelfOrder.load(root: root).decks
+        #expect(order == ["线性代数", "英语"])
+        let urls = ["b 新", "英语", "a 新", "线性代数"].map { root.appendingPathComponent($0) }
+        #expect(ShelfOrder.sorted(urls, by: order).map(\.lastPathComponent) == ["线性代数", "英语", "a 新", "b 新"])
+    }
+}

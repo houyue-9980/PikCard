@@ -7,6 +7,7 @@ struct ShelfWindow: View {
     @Environment(\.openWindow) private var openWindow
     @State private var editingDeck: Deck?
     @State private var trashing: Deck?
+    @State private var drag = DeckDrag()
 
     var body: some View {
         @Bindable var library = library
@@ -38,7 +39,18 @@ struct ShelfWindow: View {
                     .padding(.horizontal, 44)
                     .padding(.vertical, 30)
                     .frame(maxWidth: .infinity, alignment: .leading)
+                    // 拖动中的影子：跟着鼠标走
+                    .overlay(alignment: .topLeading) {
+                        if let deck = drag.deck {
+                            DeckTileFace(deck: deck, lifted: true)
+                                .position(x: drag.location.x - drag.grab.width, y: drag.location.y - drag.grab.height)
+                                .allowsHitTesting(false)
+                        }
+                    }
+                    .coordinateSpace(name: "shelf")
+                    .onPreferenceChange(DeckFrameKey.self) { drag.frames = $0 }
                 }
+                .environment(drag)
             }
         }
         .frame(minWidth: 520, minHeight: 380)
@@ -107,41 +119,126 @@ struct ShelfWindow: View {
     }
 }
 
-/// 书架上的一个卡组
+// MARK: - 拖动换位置（和拾记一样，app 自己处理拖动，不用系统拖放：松手时影子直接消失，图标同时出现在新位置）
+
+/// 松手会放到哪里：某个卡组的前面或后面
+struct DeckDropSpot: Equatable {
+    let url: URL
+    let after: Bool
+}
+
+@Observable
+final class DeckDrag {
+    /// 正在拖的卡组；nil = 没在拖
+    var deck: Deck?
+    /// 鼠标在书架内容里的位置（坐标系 "shelf"）
+    var location: CGPoint = .zero
+    /// 按下时鼠标离图标中心多远：影子跟着鼠标走时保持这个距离
+    var grab: CGSize = .zero
+    var target: DeckDropSpot?
+    /// 每个卡组图标在书架内容里的位置
+    var frames: [URL: CGRect] = [:]
+
+    /// 鼠标在 point 时，松手会放到哪里：在哪个图标上，靠左半边放它前面，靠右半边放它后面
+    func target(at point: CGPoint) -> DeckDropSpot? {
+        guard let dragged = deck?.url else { return nil }
+        guard let (url, frame) = frames.first(where: { $0.key != dragged && $0.value.insetBy(dx: -11, dy: -13).contains(point) }) else {
+            return nil
+        }
+        return DeckDropSpot(url: url, after: point.x > frame.midX)
+    }
+}
+
+struct DeckFrameKey: PreferenceKey {
+    static let defaultValue: [URL: CGRect] = [:]
+    static func reduce(value: inout [URL: CGRect], nextValue: () -> [URL: CGRect]) { value.merge(nextValue()) { $1 } }
+}
+
+/// 书架上的一个卡组：单击打开，按住拖动换位置
 private struct DeckTile: View {
     let deck: Deck
     let open: () -> Void
+    @Environment(Library.self) private var library
+    @Environment(DeckDrag.self) private var drag
     @State private var hovering = false
 
     var body: some View {
-        Button(action: open) {
-            VStack(spacing: 8) {
-                RoundedRectangle(cornerRadius: 22)
-                    .fill(deck.meta.color.color)
-                    .frame(width: 104, height: 104)
-                    .overlay(Text(deck.meta.emoji).font(.system(size: 50)))
-                    .overlay(alignment: .topTrailing) {
-                        let count = deck.todayCount
-                        if count > 0 {
-                            Text("\(count)")
-                                .font(.caption.weight(.bold)).monospacedDigit()
-                                .foregroundStyle(.white)
-                                .padding(.horizontal, 7).frame(minWidth: 24, minHeight: 22)
-                                .background(Capsule().fill(Color(red: 0.89, green: 0.40, blue: 0.24)))
-                                .offset(x: 8, y: -8)
-                        }
-                    }
-                    .shadow(color: .black.opacity(hovering ? 0.14 : 0.05), radius: hovering ? 10 : 4, y: hovering ? 5 : 2)
-                    .scaleEffect(hovering ? 1.03 : 1)
-                Text(deck.name).font(.callout.weight(.medium)).lineLimit(2).multilineTextAlignment(.center)
-                Text(L("\(deck.cards.count) 张", "\(deck.cards.count) cards")).font(.caption).foregroundStyle(.secondary)
-            }
+        DeckTileFace(deck: deck, lifted: hovering && drag.deck == nil)
             .frame(width: 128)
             .contentShape(Rectangle())
+            // 别的卡组拖到这里：左边或右边一条蓝线，提示会放在哪
+            .overlay(alignment: drag.target?.after == true ? .trailing : .leading) {
+                if drag.target?.url == deck.url {
+                    RoundedRectangle(cornerRadius: 1.5).fill(Color.accentColor)
+                        .frame(width: 3).padding(.vertical, 6)
+                        .offset(x: drag.target?.after == true ? 12 : -12)
+                }
+            }
+            // 正在被拖走：原位置变淡
+            .opacity(drag.deck?.url == deck.url ? 0.3 : 1)
+            .background(GeometryReader { geo in
+                Color.clear.preference(key: DeckFrameKey.self, value: [deck.url: geo.frame(in: .named("shelf"))])
+            })
+            .onHover { hovering = $0 }
+            .pikAnimation(Motion.springy, value: hovering)
+            .pikAnimation(Motion.quick, value: drag.deck?.url == deck.url)
+            .onTapGesture(perform: open)
+            .gesture(
+                DragGesture(minimumDistance: 4, coordinateSpace: .named("shelf"))
+                    .onChanged { value in
+                        if drag.deck == nil {
+                            drag.deck = deck
+                            if let frame = drag.frames[deck.url] {
+                                drag.grab = CGSize(width: value.startLocation.x - frame.midX, height: value.startLocation.y - frame.midY)
+                            }
+                        }
+                        drag.location = value.location
+                        let target = drag.target(at: value.location)
+                        if target != drag.target { withPikAnimation(Motion.quick) { drag.target = target } }
+                    }
+                    .onEnded { value in
+                        let target = drag.target(at: value.location)
+                        // 影子消失、图标出现在新位置，都在同一瞬间
+                        withoutAnimation {
+                            if let target, let other = library.decks.first(where: { $0.url == target.url }) {
+                                library.move(deck, to: other, after: target.after)
+                            }
+                            drag.deck = nil
+                            drag.target = nil
+                        }
+                    }
+            )
+    }
+}
+
+/// 卡组图标的样子（书架上的、拖动时跟着鼠标的影子都用它）
+private struct DeckTileFace: View {
+    let deck: Deck
+    var lifted = false
+
+    var body: some View {
+        VStack(spacing: 8) {
+            RoundedRectangle(cornerRadius: 22)
+                .fill(deck.meta.color.color)
+                .frame(width: 104, height: 104)
+                .overlay(Text(deck.meta.emoji).font(.system(size: 50)))
+                .overlay(alignment: .topTrailing) {
+                    let count = deck.todayCount
+                    if count > 0 {
+                        Text("\(count)")
+                            .font(.caption.weight(.bold)).monospacedDigit()
+                            .foregroundStyle(.white)
+                            .padding(.horizontal, 7).frame(minWidth: 24, minHeight: 22)
+                            .background(Capsule().fill(Color(red: 0.89, green: 0.40, blue: 0.24)))
+                            .offset(x: 8, y: -8)
+                    }
+                }
+                .shadow(color: .black.opacity(lifted ? 0.16 : 0.05), radius: lifted ? 11 : 4, y: lifted ? 6 : 2)
+                .scaleEffect(lifted ? 1.04 : 1)
+            Text(deck.name).font(.callout.weight(.medium)).lineLimit(2).multilineTextAlignment(.center)
+            Text(L("\(deck.cards.count) 张", "\(deck.cards.count) cards")).font(.caption).foregroundStyle(.secondary)
         }
-        .buttonStyle(.plain)
-        .onHover { hovering = $0 }
-        .pikAnimation(Motion.springy, value: hovering)
+        .frame(width: 128)
     }
 }
 
