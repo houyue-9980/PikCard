@@ -35,12 +35,16 @@ targets:
         CFBundleVersion: $(CURRENT_PROJECT_VERSION)
         LSApplicationCategoryType: public.app-category.education
         NSHumanReadableCopyright: © 2026 Yue(Clyde) Hou · MIT License
-        # 在访达里双击 .apkg 可以用拾卡打开（导入）
+        # 能拖到程序坞图标上导入的文件。Alternate：不抢别的软件的默认打开方式
         CFBundleDocumentTypes:
           - CFBundleTypeName: Anki Deck Package
             CFBundleTypeRole: Viewer
             LSHandlerRank: Alternate
             CFBundleTypeExtensions: [apkg]
+          - CFBundleTypeName: CSV / TSV
+            CFBundleTypeRole: Viewer
+            LSHandlerRank: Alternate
+            LSItemContentTypes: [public.comma-separated-values-text, public.tab-separated-values-text, public.plain-text]
     settings:
       base:
         PRODUCT_NAME: PikCard

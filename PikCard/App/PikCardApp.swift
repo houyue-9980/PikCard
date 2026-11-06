@@ -38,23 +38,25 @@ struct PikCardApp: App {
     }
 }
 
-/// 在访达里双击 .apkg，或者拖到程序坞的图标上：导入
+/// 在访达里双击 .apkg，或者把文件拖到程序坞的拾卡图标上：导入
 final class AppDelegate: NSObject, NSApplicationDelegate {
     var library: Library? {
-        didSet { pending.forEach(open); pending = [] }
+        didSet { if !pending.isEmpty { open(pending); pending = [] } }
     }
+    /// 软件还没准备好时收到的文件，等书架窗口出来再导入
     private var pending: [URL] = []
 
     func application(_ application: NSApplication, open urls: [URL]) {
-        if library == nil { pending += urls } else { urls.forEach(open) }
+        if library == nil { pending += urls } else { open(urls) }
     }
 
-    private func open(_ url: URL) {
-        guard let library, library.rootURL != nil else {
-            library?.message = L("请先选择卡片文件夹，再导入。", "Choose a cards folder first, then import.")
+    private func open(_ urls: [URL]) {
+        guard let library else { return }
+        guard library.rootURL != nil else {
+            library.message = L("请先选择卡片文件夹，再导入。", "Choose a cards folder first, then import.")
             return
         }
-        Importer.importFile(url, into: library)
+        if let note = Importer.importFiles(urls, into: library) { library.message = note }
     }
 }
 

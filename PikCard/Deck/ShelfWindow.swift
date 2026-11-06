@@ -55,16 +55,15 @@ struct ShelfWindow: View {
             }
         }
         // 把 .apkg / .csv / .tsv 拖进窗口就导入
-        .dropDestination(for: URL.self) { urls, _ in
-            guard library.rootURL != nil else { return false }
-            let files = urls.filter { Importer.supported.contains($0.pathExtension.lowercased()) }
-            files.forEach { Importer.importFile($0, into: library) }
-            return !files.isEmpty
+        .importDrop(L("松手导入 Anki / CSV / TSV", "Drop to import Anki / CSV / TSV"), enabled: library.rootURL != nil) { urls in
+            if let note = Importer.importFiles(urls, into: library) { library.message = note }
         }
         .sheet(isPresented: $library.showingNewDeck) { DeckSettingsSheet(deck: nil) }
         .sheet(item: $editingDeck) { DeckSettingsSheet(deck: $0) }
-        .sheet(item: Binding(get: { library.pendingTextImport.map(IdentifiedURL.init) },
-                             set: { library.pendingTextImport = $0?.url })) { TextImportSheet(fileURL: $0.url) }
+        // 没指定卡组的 CSV / TSV（拖进书架、程序坞、菜单导入）在这里选列
+        .sheet(item: library.textImportBinding(for: nil)) {
+            TextImportSheet(fileURL: $0.url)
+        }
         .alert(L("提示", "Notice"), isPresented: Binding(get: { library.message != nil }, set: { if !$0 { library.message = nil } })) {
             Button(L("好", "OK")) { library.message = nil }
         } message: {
@@ -106,11 +105,6 @@ struct ShelfWindow: View {
         Button(L("在访达中显示", "Show in Finder")) { NSWorkspace.shared.activateFileViewerSelecting([deck.url]) }
         Button(L("移到废纸篓…", "Move to Trash…"), role: .destructive) { trashing = deck }
     }
-}
-
-struct IdentifiedURL: Identifiable {
-    let url: URL
-    var id: URL { url }
 }
 
 /// 书架上的一个卡组

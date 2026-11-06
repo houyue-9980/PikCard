@@ -9,6 +9,10 @@ struct ReviewView: View {
     let onExit: () -> Void
     @State private var settings = StudySettings.shared
     @State private var editing: Card?
+    /// 翻面动画：卡片绕竖轴转的角度，和翻到侧面时卡片内容的透明度
+    @State private var flipAngle: Double = 0
+    @State private var contentOpacity: Double = 1
+    @State private var flipping = false
     @FocusState private var focused: Bool
     @Environment(\.colorScheme) private var scheme
 
@@ -87,13 +91,16 @@ struct ReviewView: View {
                 .shadow(color: .black.opacity(theme == .dark ? 0.4 : 0.08), radius: 14, y: 4)
             CardWebView(deckURL: session.deck.url, front: card.front, back: card.back, revealed: session.revealed)
                 .clipShape(RoundedRectangle(cornerRadius: 18))
+                .opacity(contentOpacity)
             HStack(spacing: 6) {
                 if progress.state == .new { Badge(text: L("新卡", "New"), color: .blue) }
                 if progress.wrong { Badge(text: L("错题", "Mistake"), color: .orange) }
                 ForEach(card.tags, id: \.self) { Badge(text: "#" + $0, color: .secondary) }
             }
             .padding(14)
+            .opacity(contentOpacity)
         }
+        .rotation3DEffect(.degrees(flipAngle), axis: (x: 0, y: 1, z: 0), perspective: 0.4)
         .frame(maxWidth: 820)
         .frame(maxWidth: .infinity)
         .id(card.id)
@@ -101,12 +108,35 @@ struct ReviewView: View {
         .pikAnimation(Motion.standard, value: card.id)
     }
 
+    /// 翻面：先转到侧面（看不见内容），换成答案，再从另一边转回来
+    private func flip() {
+        guard !session.revealed, !flipping else { return }
+        if Motion.reduced {
+            session.reveal()
+            return
+        }
+        flipping = true
+        withAnimation(.easeIn(duration: 0.16)) {
+            flipAngle = 90
+            contentOpacity = 0
+        } completion: {
+            session.reveal()
+            flipAngle = -90
+            withAnimation(.easeOut(duration: 0.22)) {
+                flipAngle = 0
+                contentOpacity = 1
+            } completion: {
+                flipping = false
+            }
+        }
+    }
+
     // MARK: 按钮
 
     @ViewBuilder
     private var controls: some View {
         if !session.revealed {
-            Button { session.reveal() } label: {
+            Button { flip() } label: {
                 Text(L("看答案", "Show Answer")).frame(width: 220).padding(.vertical, 6)
             }
             .buttonStyle(.borderedProminent)
@@ -142,7 +172,7 @@ struct ReviewView: View {
         guard !session.finished else { return .ignored }
         if press.characters.lowercased() == "e" { editing = session.current; return .handled }
         if !session.revealed {
-            if press.key == .space || press.key == .return { session.reveal(); return .handled }
+            if press.key == .space || press.key == .return { flip(); return .handled }
             return .ignored
         }
         let rating: Rating? = switch (settings.answerMode, press.key, press.characters) {

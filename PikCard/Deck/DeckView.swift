@@ -23,6 +23,8 @@ struct DeckView: View {
     @State private var selection: Set<String> = []
     @State private var search = ""
     @State private var filter: CardFilter = .all
+    /// 拖进来导入的结果
+    @State private var importNote: String?
     @Environment(Library.self) private var library
 
     var body: some View {
@@ -37,6 +39,10 @@ struct DeckView: View {
                     cardList
                 }
                 .pikPageBackground()
+                // 拖进卡组窗口：卡片直接加进这个卡组
+                .importDrop(L("松手把卡片加进“\(deck.name)”", "Drop to add cards to “\(deck.name)”")) { urls in
+                    importNote = Importer.importFiles(urls, into: library, deck: deck)
+                }
                 .transition(.opacity)
             }
         }
@@ -56,6 +62,12 @@ struct DeckView: View {
         .searchable(text: $search, placement: .toolbar, prompt: L("搜索卡片", "Search cards"))
         .sheet(item: $editing) { CardEditor(deck: deck, card: $0, isNew: false) }
         .sheet(item: $adding) { CardEditor(deck: deck, card: $0, isNew: true) }
+        .sheet(item: library.textImportBinding(for: deck.url)) { TextImportSheet(fileURL: $0.url, initialTarget: deck.url) }
+        .alert(L("导入完成", "Import Finished"), isPresented: Binding(get: { importNote != nil }, set: { if !$0 { importNote = nil } })) {
+            Button(L("好", "OK")) { importNote = nil }
+        } message: {
+            Text(importNote ?? "")
+        }
     }
 
     private func startReview(_ mode: ReviewMode) {

@@ -12,25 +12,54 @@ enum Importer {
         panel.prompt = L("导入", "Import")
         panel.message = L("选择 Anki 卡组（.apkg）或 CSV / TSV 文件", "Choose an Anki deck (.apkg) or a CSV / TSV file")
         guard panel.runModal() == .OK else { return }
-        panel.urls.forEach { importFile($0, into: library) }
+        if let note = importFiles(panel.urls, into: library) { library.message = note }
     }
 
-    static func importFile(_ url: URL, into library: Library) {
-        switch url.pathExtension.lowercased() {
-        case "apkg":
-            do {
-                let decks = try importApkg(url, into: library)
-                let count = decks.reduce(0) { $0 + $1.cards.count }
-                library.message = decks.isEmpty
-                    ? L("这个 Anki 卡组包里没有卡片。", "This Anki package has no cards.")
-                    : L("导入了 \(decks.count) 个卡组，共 \(count) 张卡：\(decks.map(\.name).joined(separator: "、"))",
-                        "Imported \(decks.count) deck(s) with \(count) cards: \(decks.map(\.name).joined(separator: ", "))")
-            } catch {
-                library.message = L("导入失败：\(error.localizedDescription)", "Import failed: \(error.localizedDescription)")
+    /// 能导入的文件（拖进来的东西里挑出来）
+    static func importable(_ urls: [URL]) -> [URL] {
+        urls.filter { $0.isFileURL && supported.contains($0.pathExtension.lowercased()) }
+    }
+
+    /// 导入一批文件（拖进窗口、拖到程序坞图标、菜单选的都走这里）。
+    /// deck 不为空：卡片加进这个卡组；为空：.apkg 里每个卡组新建一个，CSV / TSV 默认新建。
+    /// 返回导入结果的说明（由调用的窗口弹出来）；只有 CSV / TSV 时返回 nil，它们会弹出选列面板
+    static func importFiles(_ urls: [URL], into library: Library, deck: Deck? = nil) -> String? {
+        var notes: [String] = []
+        for url in importable(urls) {
+            switch url.pathExtension.lowercased() {
+            case "apkg":
+                do {
+                    if let deck {
+                        let count = try importApkg(url, intoDeck: deck)
+                        notes.append(L("“\(url.lastPathComponent)”：\(count) 张卡加进了“\(deck.name)”",
+                                       "“\(url.lastPathComponent)”: \(count) cards added to “\(deck.name)”"))
+                    } else {
+                        let decks = try importApkg(url, into: library)
+                        let count = decks.reduce(0) { $0 + $1.cards.count }
+                        notes.append(decks.isEmpty
+                            ? L("“\(url.lastPathComponent)”里没有卡片", "“\(url.lastPathComponent)” has no cards")
+                            : L("“\(url.lastPathComponent)”：\(decks.count) 个卡组，共 \(count) 张卡（\(decks.map(\.name).joined(separator: "、"))）",
+                                "“\(url.lastPathComponent)”: \(decks.count) deck(s), \(count) cards (\(decks.map(\.name).joined(separator: ", ")))"))
+                    }
+                } catch {
+                    notes.append(L("“\(url.lastPathComponent)”导入失败：\(error.localizedDescription)",
+                                   "“\(url.lastPathComponent)” failed: \(error.localizedDescription)"))
+                }
+            default:
+                // CSV / TSV：弹出面板让用户选哪列是正面、背面（几个文件就一个个来）
+                library.pendingTextImports.append(PendingTextImport(url: url, target: deck?.url))
             }
-        default:
-            library.pendingTextImport = url // 弹出面板让用户选哪列是正面、背面
         }
+        return notes.isEmpty ? nil : notes.joined(separator: "\n")
+    }
+
+    /// .apkg 里的卡片全部加进一个已有的卡组
+    static func importApkg(_ url: URL, intoDeck deck: Deck) throws -> Int {
+        let imported = try ApkgReader.read(url)
+        let cards = imported.flatMap(\.cards)
+        deck.add(cards)
+        for part in imported { copyMedia(part.media, into: deck) }
+        return cards.count
     }
 
     @discardableResult
@@ -137,8 +166,17 @@ struct ExportMenuItems: View {
 }
 
 /// 导入 CSV / TSV：选分隔符、哪列是正面 / 背面 / 分类，导进新卡组或已有的卡组
+/// 等着用户选列的 CSV / TSV 文件
+struct PendingTextImport: Identifiable, Equatable {
+    let id = UUID()
+    let url: URL
+    /// 默认导进哪个卡组；nil = 新卡组
+    let target: URL?
+}
+
 struct TextImportSheet: View {
     let fileURL: URL
+    var initialTarget: URL?
     @Environment(Library.self) private var library
     @Environment(\.dismiss) private var dismiss
     @State private var text = ""
@@ -252,6 +290,7 @@ struct TextImportSheet: View {
             let (content, guessed) = try DelimitedText.read(fileURL)
             text = content
             separator = guessed
+            target = initialTarget
             newName = fileURL.deletingPathExtension().lastPathComponent
             let table = DelimitedText.parse(content, separator: guessed)
             tags = table.tagsColumn ?? (columnCount >= 3 ? 2 : nil)
@@ -284,5 +323,46 @@ struct TextImportSheet: View {
 private extension Binding where Value == Int {
     var optional: Binding<Int?> {
         Binding<Int?>(get: { wrappedValue }, set: { if let v = $0 { wrappedValue = v } })
+    }
+}
+
+extension View {
+    /// 把 .apkg / .csv / .tsv 拖进来就导入；拖到上面时整块显示一圈虚线框和提示
+    func importDrop(_ hint: String, enabled: Bool = true, perform: @escaping ([URL]) -> Void) -> some View {
+        modifier(ImportDrop(hint: hint, enabled: enabled, perform: perform))
+    }
+}
+
+private struct ImportDrop: ViewModifier {
+    let hint: String
+    let enabled: Bool
+    let perform: ([URL]) -> Void
+    @State private var targeted = false
+
+    func body(content: Content) -> some View {
+        content
+            .dropDestination(for: URL.self) { urls, _ in
+                let files = Importer.importable(urls)
+                guard enabled, !files.isEmpty else { return false }
+                perform(files)
+                return true
+            } isTargeted: { targeted = enabled && $0 }
+            .overlay {
+                if targeted {
+                    RoundedRectangle(cornerRadius: 14)
+                        .strokeBorder(Color.accentColor, style: StrokeStyle(lineWidth: 2.5, dash: [8, 6]))
+                        .background(RoundedRectangle(cornerRadius: 14).fill(Color.accentColor.opacity(0.06)))
+                        .overlay {
+                            Label(hint, systemImage: "square.and.arrow.down")
+                                .font(.headline)
+                                .padding(.horizontal, 16).padding(.vertical, 10)
+                                .background(.regularMaterial, in: Capsule())
+                        }
+                        .padding(10)
+                        .allowsHitTesting(false)
+                        .transition(.opacity)
+                }
+            }
+            .pikAnimation(Motion.quick, value: targeted)
     }
 }

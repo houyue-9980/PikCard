@@ -10,8 +10,8 @@ final class Library {
     private(set) var decks: [Deck] = []
     /// 书架窗口是否显示“新建卡组”面板
     var showingNewDeck = false
-    /// 要用户选怎么导入的 CSV / TSV 文件
-    var pendingTextImport: URL?
+    /// 要用户选怎么导入的 CSV / TSV 文件（一次拖进来几个，就一个个弹出来）
+    var pendingTextImports: [PendingTextImport] = []
     /// 导入、导出完成后的提示
     var message: String?
     @ObservationIgnored private var watcher: FolderWatcher?
@@ -61,6 +61,16 @@ final class Library {
             return Deck(url: url)
         }
         if updated.map(\.url) != decks.map(\.url) { decks = updated }
+    }
+
+    /// 某个窗口要弹出的 CSV / TSV 导入面板：target 是卡组窗口的卡组，书架窗口传 nil。关掉面板就轮到下一个
+    func textImportBinding(for target: URL?) -> Binding<PendingTextImport?> {
+        Binding(
+            get: { self.pendingTextImports.first { $0.target == target } },
+            set: { newValue in
+                guard newValue == nil, let current = self.pendingTextImports.first(where: { $0.target == target }) else { return }
+                self.pendingTextImports.removeAll { $0.id == current.id }
+            })
     }
 
     func deck(at url: URL) -> Deck? {
