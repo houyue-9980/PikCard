@@ -1,0 +1,73 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<link rel="stylesheet" href="lib/katex.min.css">
+<script src="lib/markdown-it.min.js"></script>
+<script src="lib/katex.min.js"></script>
+<script src="render.js"></script>
+<style>
+  :root { --text: #1c1c1e; --muted: #8e8e93; --line: rgba(0,0,0,.1); --accent: #e3663d; --code: rgba(0,0,0,.05); }
+  body.dark { --text: #ececee; --muted: #98989f; --line: rgba(255,255,255,.12); --code: rgba(255,255,255,.08); }
+  body.sepia { --text: #3b3227; --muted: #8a7b66; --line: rgba(90,60,20,.15); --code: rgba(90,60,20,.07); }
+  html, body { margin: 0; background: transparent; }
+  body {
+    color: var(--text);
+    font: 22px/1.6 -apple-system, "PingFang SC", "Helvetica Neue", sans-serif;
+    padding: 40px 56px;
+    min-height: calc(100vh - 80px);
+    display: flex; flex-direction: column; justify-content: center;
+    -webkit-user-select: text;
+  }
+  body.compact { font-size: 15px; padding: 14px 18px; min-height: 0; justify-content: flex-start; }
+  .face { text-align: center; overflow-wrap: anywhere; }
+  .face.left { text-align: left; }
+  .face > :first-child { margin-top: 0; }
+  .face > :last-child { margin-bottom: 0; }
+  #back { display: none; }
+  body.revealed #back { display: block; }
+  #divider { display: none; border: none; border-top: 1px solid var(--line); margin: 28px 0; }
+  body.revealed #divider { display: block; }
+  body.compact #divider { margin: 12px 0; }
+  img { max-width: 100%; max-height: 50vh; border-radius: 6px; }
+  audio { width: 260px; }
+  table { border-collapse: collapse; margin: 0 auto; }
+  td, th { border: 1px solid var(--line); padding: 4px 10px; }
+  code { background: var(--code); border-radius: 4px; padding: 1px 5px; font-size: .9em; }
+  pre { background: var(--code); border-radius: 8px; padding: 12px 14px; text-align: left; overflow-x: auto; }
+  pre code { background: none; padding: 0; }
+  blockquote { border-left: 3px solid var(--line); margin: 0; padding-left: 14px; color: var(--muted); text-align: left; }
+  ul, ol { text-align: left; display: inline-block; margin: .4em 0; }
+  a { color: var(--accent); }
+  .cloze { color: var(--accent); font-weight: 600; }
+  .katex-display { margin: .6em 0; }
+</style>
+</head>
+<body>
+  <div id="front" class="face"></div>
+  <hr id="divider">
+  <div id="back" class="face"></div>
+<script>
+  // 拾卡调用：show(正面, 背面, 是否已翻面, 主题, 是否紧凑)
+  function show(front, back, revealed, theme, compact) {
+    document.body.className = [theme, revealed ? "revealed" : "", compact ? "compact" : ""].join(" ");
+    document.getElementById("front").innerHTML = renderCard(front, "katex");
+    document.getElementById("back").innerHTML = renderCard(back, "katex");
+    // 多行的长内容左对齐更好读
+    for (const id of ["front", "back"]) {
+      const el = document.getElementById(id);
+      el.classList.toggle("left", el.querySelectorAll("p, li, pre, blockquote").length > 2);
+    }
+    if (revealed && !compact) {
+      const back = document.getElementById("back");
+      const audio = back.querySelector("audio");
+      if (audio) audio.play().catch(() => {});
+    } else if (!revealed) {
+      const audio = document.getElementById("front").querySelector("audio");
+      if (audio && !compact) audio.play().catch(() => {});
+    }
+    window.scrollTo(0, 0);
+  }
+</script>
+</body>
+</html>

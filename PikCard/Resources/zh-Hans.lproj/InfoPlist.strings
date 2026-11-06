@@ -1,0 +1,3 @@
+/* 中文界面下，菜单栏和访达里显示的软件名字 */
+"CFBundleName" = "拾卡";
+"CFBundleDisplayName" = "拾卡";

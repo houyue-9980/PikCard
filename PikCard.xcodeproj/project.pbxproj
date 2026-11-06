@@ -1,0 +1,736 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 77;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		04CD3CDB3C9139DFB7D7F8B6 /* ReviewView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFF0A07715C115DAC55EED0C /* ReviewView.swift */; };
+		0C6C3938AFC77917FE9BA0EB /* ReviewSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CA5E756034F3F5F322BCF26 /* ReviewSession.swift */; };
+		0E5150A343E4669FDBA314F6 /* entropy_common.c in Sources */ = {isa = PBXBuildFile; fileRef = A64D7A2C2E213905EA57B118 /* entropy_common.c */; };
+		0E83786735005A7DB8A698DB /* MarkdownHTML.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E559FD6562EEB9244462051 /* MarkdownHTML.swift */; };
+		146898D5CE910758D0A14E20 /* Apkg.swift in Sources */ = {isa = PBXBuildFile; fileRef = F90A723B2BA7EC4C6B1A2D1B /* Apkg.swift */; };
+		16AFB20E6C9FCF3B0781D6F8 /* fse_decompress.c in Sources */ = {isa = PBXBuildFile; fileRef = FFAAC8B4B99854BC5A3389CA /* fse_decompress.c */; };
+		16D25DE7AA9D5303A125C22D /* PikCardApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD5BF01D464A1A829D29541B /* PikCardApp.swift */; };
+		1A1F3EAEDBAF027107CB58E0 /* debug.c in Sources */ = {isa = PBXBuildFile; fileRef = 4670BD5B2A43344F6BD4B301 /* debug.c */; };
+		1F733054D83A9A73CAAF44C7 /* zstd_decompress_block.c in Sources */ = {isa = PBXBuildFile; fileRef = 671FBCDD79FDEAEACC17B1BB /* zstd_decompress_block.c */; };
+		239C83F8E2CD9E911041834E /* zstd_ddict.c in Sources */ = {isa = PBXBuildFile; fileRef = 9E9E4E536B1F25EDD0CCA53E /* zstd_ddict.c */; };
+		32E0CEF6369273E6E5A393B6 /* render in Resources */ = {isa = PBXBuildFile; fileRef = 7495C1BD3939C502878FFADC /* render */; };
+		32EBC738B0D0A7A072C87136 /* FolderWatcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 341ACA699C19628196306218 /* FolderWatcher.swift */; };
+		341A7B81397E5A0027AA1396 /* Motion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 311D97B1B8FF379B5657BFD5 /* Motion.swift */; };
+		39813A2AE3B6F1155982F6F9 /* zstd_common.c in Sources */ = {isa = PBXBuildFile; fileRef = 35CBBD56B53E6345B52D3D45 /* zstd_common.c */; };
+		3EED668A798D43F0D8A3049E /* huf_decompress.c in Sources */ = {isa = PBXBuildFile; fileRef = 7574A64F9C847057079BFC74 /* huf_decompress.c */; };
+		4718FE2C9B6D6C844FB54700 /* ExchangeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37C1B9BC125140279ABA622A /* ExchangeTests.swift */; };
+		4B0164F2CA93C50F11385759 /* threading.c in Sources */ = {isa = PBXBuildFile; fileRef = 19F8D8A2DB62B33CBF4AE9D8 /* threading.c */; };
+		4EF2570CD44BE7ED8C202E06 /* Archive.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AAE69B605D3BF2064D7FCB1 /* Archive.swift */; };
+		56E7A59A1E1930B65B719A9D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5DCC8F0F4E034C990620707F /* Assets.xcassets */; };
+		5E74700BB4E79C5D2262314A /* SQLite.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA77D947132276708B2141D5 /* SQLite.swift */; };
+		5FE6B7E89EC471F752777FAC /* Library.swift in Sources */ = {isa = PBXBuildFile; fileRef = 781EA82F9447761CC5840ECD /* Library.swift */; };
+		6AA3CF3479B862267F97318F /* ShelfWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14E9423A7D0E6F2B91ADCEC2 /* ShelfWindow.swift */; };
+		703796581316A7FD9D37F953 /* CardWebView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0395E02CD8843971168E4BB3 /* CardWebView.swift */; };
+		7117057E87CFE59EE49DDD41 /* DelimitedText.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1D208B4C23E97BB8445EC11 /* DelimitedText.swift */; };
+		7EF29086398D69613B865E4D /* CardFileTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4FB567AD854DD25CF715DE1 /* CardFileTests.swift */; };
+		8835FE4946FAF8B57BFC1823 /* Progress.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68ACAC484FDF5889B357FD27 /* Progress.swift */; };
+		8CFF78506990225B4F0107B7 /* zstd_decompress.c in Sources */ = {isa = PBXBuildFile; fileRef = 95E851C2EFEA3D1945A7B6CB /* zstd_decompress.c */; };
+		96695657CFB1CBF15E428FCF /* Exchange.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E9908C1704400D6FB899CEE /* Exchange.swift */; };
+		99BF3852A799B081CEEAEA3F /* xxhash.c in Sources */ = {isa = PBXBuildFile; fileRef = F1A8213579AA327055D06DEF /* xxhash.c */; };
+		9A0AB16FD7B1C44132203549 /* pool.c in Sources */ = {isa = PBXBuildFile; fileRef = 26882A5E655BE3616806B7B2 /* pool.c */; };
+		9AA0123FBD42F1D7D10C5A36 /* Scheduler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FD88FB57DCA2B8353519976 /* Scheduler.swift */; };
+		9C6251E63BD4F65824734A4D /* CardFile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 653B8B21EF6515D3135B34E6 /* CardFile.swift */; };
+		9E57B8705CF98E53240BBE43 /* DeckView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 061BC978D9341CB57F65B1DA /* DeckView.swift */; };
+		B1593DF6284EC3B0B6364E34 /* Tutorial.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A66B36FC1FEC158913D3099 /* Tutorial.swift */; };
+		B4577A0A7BED7FDCCAAD6954 /* CardEditor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55355BA49AE827D68A391B02 /* CardEditor.swift */; };
+		D5EEE23B11FD2F2A0CBD0DF7 /* StudySettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03E65D39771574D1B2C15D2C /* StudySettings.swift */; };
+		D8EE6DAB89D0C7612FDFF510 /* Appearance.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0843E415D503EEDCABB2F1CB /* Appearance.swift */; };
+		D8EFF85943ECF2A1988D76A9 /* TileColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4D3C4B51AEFBFFEA5277E28 /* TileColor.swift */; };
+		E8C412356445614E0E21124A /* Language.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2EFB1BA15D5841B91FFE2EB /* Language.swift */; };
+		ECC35A58DC448584FDB1B474 /* error_private.c in Sources */ = {isa = PBXBuildFile; fileRef = 884FC3AA104E6746D158C754 /* error_private.c */; };
+		EDA8C214D450D9973A140A2B /* Deck.swift in Sources */ = {isa = PBXBuildFile; fileRef = B561488EC937074A7D9D7976 /* Deck.swift */; };
+		F832C863BAED05A084BD5189 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 5826E12DA878B4D4A573336B /* InfoPlist.strings */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		AA4669467B57F03775E0EB0B /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 96152A61870181AF5D3104C7 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 9D4D8F719293F0DD1C079C6E;
+			remoteInfo = PikCard;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		01CE54A660D97A6550389C0B /* threading.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = threading.h; sourceTree = "<group>"; };
+		0395E02CD8843971168E4BB3 /* CardWebView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardWebView.swift; sourceTree = "<group>"; };
+		03E65D39771574D1B2C15D2C /* StudySettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudySettings.swift; sourceTree = "<group>"; };
+		061BC978D9341CB57F65B1DA /* DeckView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeckView.swift; sourceTree = "<group>"; };
+		07B69C494D59C3888F0424D9 /* zstd_errors.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = zstd_errors.h; sourceTree = "<group>"; };
+		0843E415D503EEDCABB2F1CB /* Appearance.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Appearance.swift; sourceTree = "<group>"; };
+		0D6A856024143F0A1E37260F /* allocations.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = allocations.h; sourceTree = "<group>"; };
+		0ED293502A59EDA36971269A /* cpu.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = cpu.h; sourceTree = "<group>"; };
+		10DF63DB0760CFE7842AD51F /* debug.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = debug.h; sourceTree = "<group>"; };
+		14E9423A7D0E6F2B91ADCEC2 /* ShelfWindow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShelfWindow.swift; sourceTree = "<group>"; };
+		19F8D8A2DB62B33CBF4AE9D8 /* threading.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = threading.c; sourceTree = "<group>"; };
+		1A66B36FC1FEC158913D3099 /* Tutorial.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tutorial.swift; sourceTree = "<group>"; };
+		1FF7DA325980D00F978F4D5D /* portability_macros.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = portability_macros.h; sourceTree = "<group>"; };
+		26882A5E655BE3616806B7B2 /* pool.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = pool.c; sourceTree = "<group>"; };
+		2AAE69B605D3BF2064D7FCB1 /* Archive.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Archive.swift; sourceTree = "<group>"; };
+		2CA5E756034F3F5F322BCF26 /* ReviewSession.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewSession.swift; sourceTree = "<group>"; };
+		2D154C9E6FE0D3C1C35BA153 /* zstd_internal.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = zstd_internal.h; sourceTree = "<group>"; };
+		311D97B1B8FF379B5657BFD5 /* Motion.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Motion.swift; sourceTree = "<group>"; };
+		33DE13B46D53953011D82191 /* bitstream.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = bitstream.h; sourceTree = "<group>"; };
+		341ACA699C19628196306218 /* FolderWatcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FolderWatcher.swift; sourceTree = "<group>"; };
+		35CBBD56B53E6345B52D3D45 /* zstd_common.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = zstd_common.c; sourceTree = "<group>"; };
+		37C1B9BC125140279ABA622A /* ExchangeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExchangeTests.swift; sourceTree = "<group>"; };
+		39A26592307A797CD1160490 /* zstd_trace.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = zstd_trace.h; sourceTree = "<group>"; };
+		3BFD5BD4A5B22BCFF77E0F3D /* PikCard.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PikCard.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		439629DFDB8863AFC251CDFB /* zstd_ddict.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = zstd_ddict.h; sourceTree = "<group>"; };
+		4670BD5B2A43344F6BD4B301 /* debug.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = debug.c; sourceTree = "<group>"; };
+		4778B8B0B207BB1A14281C20 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		4A37FBEA46230ED4EEB781EE /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		4E9908C1704400D6FB899CEE /* Exchange.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Exchange.swift; sourceTree = "<group>"; };
+		4E9A4E6B7A97747BE2B18E47 /* pool.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = pool.h; sourceTree = "<group>"; };
+		4EF208D730C7B93E9831F138 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
+		55355BA49AE827D68A391B02 /* CardEditor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardEditor.swift; sourceTree = "<group>"; };
+		5D886A0CA8D6248A0A55930F /* PikCard-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "PikCard-Bridging-Header.h"; sourceTree = "<group>"; };
+		5DCC8F0F4E034C990620707F /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		653B8B21EF6515D3135B34E6 /* CardFile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardFile.swift; sourceTree = "<group>"; };
+		671FBCDD79FDEAEACC17B1BB /* zstd_decompress_block.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = zstd_decompress_block.c; sourceTree = "<group>"; };
+		68ACAC484FDF5889B357FD27 /* Progress.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Progress.swift; sourceTree = "<group>"; };
+		6A2D68B0587DDAF577A8C387 /* bits.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = bits.h; sourceTree = "<group>"; };
+		7495C1BD3939C502878FFADC /* render */ = {isa = PBXFileReference; lastKnownFileType = folder; name = render; path = PikCard/Resources/render; sourceTree = SOURCE_ROOT; };
+		7574A64F9C847057079BFC74 /* huf_decompress.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = huf_decompress.c; sourceTree = "<group>"; };
+		781EA82F9447761CC5840ECD /* Library.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Library.swift; sourceTree = "<group>"; };
+		7FD88FB57DCA2B8353519976 /* Scheduler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Scheduler.swift; sourceTree = "<group>"; };
+		80014AC0FF50D9DDA6129BB7 /* PikCardTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PikCardTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		884FC3AA104E6746D158C754 /* error_private.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = error_private.c; sourceTree = "<group>"; };
+		8E559FD6562EEB9244462051 /* MarkdownHTML.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarkdownHTML.swift; sourceTree = "<group>"; };
+		959E5D4A81734BC254001EE2 /* zstd.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = zstd.h; sourceTree = "<group>"; };
+		95E851C2EFEA3D1945A7B6CB /* zstd_decompress.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = zstd_decompress.c; sourceTree = "<group>"; };
+		9A03FC4CAA8FFCD7DBDDA7AD /* error_private.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = error_private.h; sourceTree = "<group>"; };
+		9E9E4E536B1F25EDD0CCA53E /* zstd_ddict.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = zstd_ddict.c; sourceTree = "<group>"; };
+		A22017C31223473FE4B39D00 /* fse.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = fse.h; sourceTree = "<group>"; };
+		A64D7A2C2E213905EA57B118 /* entropy_common.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = entropy_common.c; sourceTree = "<group>"; };
+		A99ACCD0C8C70B03070468AD /* zstd_deps.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = zstd_deps.h; sourceTree = "<group>"; };
+		AA77D947132276708B2141D5 /* SQLite.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SQLite.swift; sourceTree = "<group>"; };
+		B561488EC937074A7D9D7976 /* Deck.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Deck.swift; sourceTree = "<group>"; };
+		BD5BF01D464A1A829D29541B /* PikCardApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PikCardApp.swift; sourceTree = "<group>"; };
+		C2EFB1BA15D5841B91FFE2EB /* Language.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Language.swift; sourceTree = "<group>"; };
+		C87DE4DED73C8BAC6C600CCB /* zstd_decompress_internal.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = zstd_decompress_internal.h; sourceTree = "<group>"; };
+		CBBC1B55E96D1C24BFE97188 /* mem.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = mem.h; sourceTree = "<group>"; };
+		D1D208B4C23E97BB8445EC11 /* DelimitedText.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DelimitedText.swift; sourceTree = "<group>"; };
+		D4D3C4B51AEFBFFEA5277E28 /* TileColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TileColor.swift; sourceTree = "<group>"; };
+		DC285E960448D9B5DF4F1BAA /* xxhash.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = xxhash.h; sourceTree = "<group>"; };
+		DF17A7F69A13D54F8B5DED5E /* huf.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = huf.h; sourceTree = "<group>"; };
+		E5C45AF04417448EE32C8E36 /* zstd_decompress_block.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = zstd_decompress_block.h; sourceTree = "<group>"; };
+		EFF0A07715C115DAC55EED0C /* ReviewView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewView.swift; sourceTree = "<group>"; };
+		F1A8213579AA327055D06DEF /* xxhash.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = xxhash.c; sourceTree = "<group>"; };
+		F4FB567AD854DD25CF715DE1 /* CardFileTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardFileTests.swift; sourceTree = "<group>"; };
+		F81B14AB0AB9560C0C2AF241 /* compiler.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = compiler.h; sourceTree = "<group>"; };
+		F90A723B2BA7EC4C6B1A2D1B /* Apkg.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Apkg.swift; sourceTree = "<group>"; };
+		FFAAC8B4B99854BC5A3389CA /* fse_decompress.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = fse_decompress.c; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXGroup section */
+		247DCA798FE79CD5FD6C6875 /* Deck */ = {
+			isa = PBXGroup;
+			children = (
+				55355BA49AE827D68A391B02 /* CardEditor.swift */,
+				061BC978D9341CB57F65B1DA /* DeckView.swift */,
+				14E9423A7D0E6F2B91ADCEC2 /* ShelfWindow.swift */,
+			);
+			path = Deck;
+			sourceTree = "<group>";
+		};
+		25A847551F22556F5549C0E0 /* PikCardTests */ = {
+			isa = PBXGroup;
+			children = (
+				F4FB567AD854DD25CF715DE1 /* CardFileTests.swift */,
+				37C1B9BC125140279ABA622A /* ExchangeTests.swift */,
+			);
+			path = PikCardTests;
+			sourceTree = "<group>";
+		};
+		347C5D6915E4F7E81F82AB33 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				5DCC8F0F4E034C990620707F /* Assets.xcassets */,
+				7495C1BD3939C502878FFADC /* render */,
+				5826E12DA878B4D4A573336B /* InfoPlist.strings */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		4B629BD95F60E42F1F12B0B7 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				653B8B21EF6515D3135B34E6 /* CardFile.swift */,
+				B561488EC937074A7D9D7976 /* Deck.swift */,
+				341ACA699C19628196306218 /* FolderWatcher.swift */,
+				781EA82F9447761CC5840ECD /* Library.swift */,
+				68ACAC484FDF5889B357FD27 /* Progress.swift */,
+				7FD88FB57DCA2B8353519976 /* Scheduler.swift */,
+				D4D3C4B51AEFBFFEA5277E28 /* TileColor.swift */,
+				1A66B36FC1FEC158913D3099 /* Tutorial.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		5B28BBAF13A4A8D28F7A6A79 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				3BFD5BD4A5B22BCFF77E0F3D /* PikCard.app */,
+				80014AC0FF50D9DDA6129BB7 /* PikCardTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		6A0C30109496AD360C10A45A /* Vendor */ = {
+			isa = PBXGroup;
+			children = (
+				5D886A0CA8D6248A0A55930F /* PikCard-Bridging-Header.h */,
+				ADA5B520FB8D63E312ACB08E /* zstd */,
+			);
+			path = Vendor;
+			sourceTree = "<group>";
+		};
+		6F7585324F4EE72633324FF7 /* common */ = {
+			isa = PBXGroup;
+			children = (
+				0D6A856024143F0A1E37260F /* allocations.h */,
+				6A2D68B0587DDAF577A8C387 /* bits.h */,
+				33DE13B46D53953011D82191 /* bitstream.h */,
+				F81B14AB0AB9560C0C2AF241 /* compiler.h */,
+				0ED293502A59EDA36971269A /* cpu.h */,
+				4670BD5B2A43344F6BD4B301 /* debug.c */,
+				10DF63DB0760CFE7842AD51F /* debug.h */,
+				A64D7A2C2E213905EA57B118 /* entropy_common.c */,
+				884FC3AA104E6746D158C754 /* error_private.c */,
+				9A03FC4CAA8FFCD7DBDDA7AD /* error_private.h */,
+				FFAAC8B4B99854BC5A3389CA /* fse_decompress.c */,
+				A22017C31223473FE4B39D00 /* fse.h */,
+				DF17A7F69A13D54F8B5DED5E /* huf.h */,
+				CBBC1B55E96D1C24BFE97188 /* mem.h */,
+				26882A5E655BE3616806B7B2 /* pool.c */,
+				4E9A4E6B7A97747BE2B18E47 /* pool.h */,
+				1FF7DA325980D00F978F4D5D /* portability_macros.h */,
+				19F8D8A2DB62B33CBF4AE9D8 /* threading.c */,
+				01CE54A660D97A6550389C0B /* threading.h */,
+				F1A8213579AA327055D06DEF /* xxhash.c */,
+				DC285E960448D9B5DF4F1BAA /* xxhash.h */,
+				35CBBD56B53E6345B52D3D45 /* zstd_common.c */,
+				A99ACCD0C8C70B03070468AD /* zstd_deps.h */,
+				2D154C9E6FE0D3C1C35BA153 /* zstd_internal.h */,
+				39A26592307A797CD1160490 /* zstd_trace.h */,
+			);
+			path = common;
+			sourceTree = "<group>";
+		};
+		9D6D35D6F80916C194D8B83C /* decompress */ = {
+			isa = PBXGroup;
+			children = (
+				7574A64F9C847057079BFC74 /* huf_decompress.c */,
+				9E9E4E536B1F25EDD0CCA53E /* zstd_ddict.c */,
+				439629DFDB8863AFC251CDFB /* zstd_ddict.h */,
+				671FBCDD79FDEAEACC17B1BB /* zstd_decompress_block.c */,
+				E5C45AF04417448EE32C8E36 /* zstd_decompress_block.h */,
+				C87DE4DED73C8BAC6C600CCB /* zstd_decompress_internal.h */,
+				95E851C2EFEA3D1945A7B6CB /* zstd_decompress.c */,
+			);
+			path = decompress;
+			sourceTree = "<group>";
+		};
+		9D8D3F9598EEEF9B1A19B5F9 /* Exchange */ = {
+			isa = PBXGroup;
+			children = (
+				F90A723B2BA7EC4C6B1A2D1B /* Apkg.swift */,
+				2AAE69B605D3BF2064D7FCB1 /* Archive.swift */,
+				D1D208B4C23E97BB8445EC11 /* DelimitedText.swift */,
+				4E9908C1704400D6FB899CEE /* Exchange.swift */,
+				8E559FD6562EEB9244462051 /* MarkdownHTML.swift */,
+				AA77D947132276708B2141D5 /* SQLite.swift */,
+			);
+			path = Exchange;
+			sourceTree = "<group>";
+		};
+		ADA5B520FB8D63E312ACB08E /* zstd */ = {
+			isa = PBXGroup;
+			children = (
+				07B69C494D59C3888F0424D9 /* zstd_errors.h */,
+				959E5D4A81734BC254001EE2 /* zstd.h */,
+				6F7585324F4EE72633324FF7 /* common */,
+				9D6D35D6F80916C194D8B83C /* decompress */,
+			);
+			path = zstd;
+			sourceTree = "<group>";
+		};
+		C248BB8E5328113ADDA9F955 = {
+			isa = PBXGroup;
+			children = (
+				E24772E87673E99908974CC3 /* PikCard */,
+				25A847551F22556F5549C0E0 /* PikCardTests */,
+				5B28BBAF13A4A8D28F7A6A79 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		D9F959694962B24184CDC4E4 /* App */ = {
+			isa = PBXGroup;
+			children = (
+				0843E415D503EEDCABB2F1CB /* Appearance.swift */,
+				C2EFB1BA15D5841B91FFE2EB /* Language.swift */,
+				311D97B1B8FF379B5657BFD5 /* Motion.swift */,
+				BD5BF01D464A1A829D29541B /* PikCardApp.swift */,
+				03E65D39771574D1B2C15D2C /* StudySettings.swift */,
+			);
+			path = App;
+			sourceTree = "<group>";
+		};
+		E24772E87673E99908974CC3 /* PikCard */ = {
+			isa = PBXGroup;
+			children = (
+				4778B8B0B207BB1A14281C20 /* Info.plist */,
+				D9F959694962B24184CDC4E4 /* App */,
+				247DCA798FE79CD5FD6C6875 /* Deck */,
+				9D8D3F9598EEEF9B1A19B5F9 /* Exchange */,
+				4B629BD95F60E42F1F12B0B7 /* Model */,
+				347C5D6915E4F7E81F82AB33 /* Resources */,
+				E7B4745FCBB497051457E1D9 /* Review */,
+				6A0C30109496AD360C10A45A /* Vendor */,
+			);
+			path = PikCard;
+			sourceTree = "<group>";
+		};
+		E7B4745FCBB497051457E1D9 /* Review */ = {
+			isa = PBXGroup;
+			children = (
+				0395E02CD8843971168E4BB3 /* CardWebView.swift */,
+				2CA5E756034F3F5F322BCF26 /* ReviewSession.swift */,
+				EFF0A07715C115DAC55EED0C /* ReviewView.swift */,
+			);
+			path = Review;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		331E87DF84C3B8AB8C515095 /* PikCardTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 1330CF44F14A2E2CF3692406 /* Build configuration list for PBXNativeTarget "PikCardTests" */;
+			buildPhases = (
+				046641FDE63812D60D6D64A2 /* Sources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				C97CDC56A9E42267B040B2E0 /* PBXTargetDependency */,
+			);
+			name = PikCardTests;
+			packageProductDependencies = (
+			);
+			productName = PikCardTests;
+			productReference = 80014AC0FF50D9DDA6129BB7 /* PikCardTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		9D4D8F719293F0DD1C079C6E /* PikCard */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 047F0AC8D6E48D8E8A1B3806 /* Build configuration list for PBXNativeTarget "PikCard" */;
+			buildPhases = (
+				A3F39D00BDC6D39B8D1D6314 /* Sources */,
+				736EB62674AE4B29A4894AB4 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = PikCard;
+			packageProductDependencies = (
+			);
+			productName = PikCard;
+			productReference = 3BFD5BD4A5B22BCFF77E0F3D /* PikCard.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		96152A61870181AF5D3104C7 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = YES;
+				LastUpgradeCheck = 1430;
+				TargetAttributes = {
+					331E87DF84C3B8AB8C515095 = {
+						ProvisioningStyle = Manual;
+					};
+					9D4D8F719293F0DD1C079C6E = {
+						ProvisioningStyle = Manual;
+					};
+				};
+			};
+			buildConfigurationList = E72A1AEBBA80AED4B352F339 /* Build configuration list for PBXProject "PikCard" */;
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				Base,
+				en,
+				"zh-Hans",
+			);
+			mainGroup = C248BB8E5328113ADDA9F955;
+			minimizedProjectReferenceProxies = 1;
+			preferredProjectObjectVersion = 77;
+			productRefGroup = 5B28BBAF13A4A8D28F7A6A79 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				9D4D8F719293F0DD1C079C6E /* PikCard */,
+				331E87DF84C3B8AB8C515095 /* PikCardTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		736EB62674AE4B29A4894AB4 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				56E7A59A1E1930B65B719A9D /* Assets.xcassets in Resources */,
+				F832C863BAED05A084BD5189 /* InfoPlist.strings in Resources */,
+				32E0CEF6369273E6E5A393B6 /* render in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		046641FDE63812D60D6D64A2 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				7EF29086398D69613B865E4D /* CardFileTests.swift in Sources */,
+				4718FE2C9B6D6C844FB54700 /* ExchangeTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		A3F39D00BDC6D39B8D1D6314 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				146898D5CE910758D0A14E20 /* Apkg.swift in Sources */,
+				D8EE6DAB89D0C7612FDFF510 /* Appearance.swift in Sources */,
+				4EF2570CD44BE7ED8C202E06 /* Archive.swift in Sources */,
+				B4577A0A7BED7FDCCAAD6954 /* CardEditor.swift in Sources */,
+				9C6251E63BD4F65824734A4D /* CardFile.swift in Sources */,
+				703796581316A7FD9D37F953 /* CardWebView.swift in Sources */,
+				EDA8C214D450D9973A140A2B /* Deck.swift in Sources */,
+				9E57B8705CF98E53240BBE43 /* DeckView.swift in Sources */,
+				7117057E87CFE59EE49DDD41 /* DelimitedText.swift in Sources */,
+				96695657CFB1CBF15E428FCF /* Exchange.swift in Sources */,
+				32EBC738B0D0A7A072C87136 /* FolderWatcher.swift in Sources */,
+				E8C412356445614E0E21124A /* Language.swift in Sources */,
+				5FE6B7E89EC471F752777FAC /* Library.swift in Sources */,
+				0E83786735005A7DB8A698DB /* MarkdownHTML.swift in Sources */,
+				341A7B81397E5A0027AA1396 /* Motion.swift in Sources */,
+				16D25DE7AA9D5303A125C22D /* PikCardApp.swift in Sources */,
+				8835FE4946FAF8B57BFC1823 /* Progress.swift in Sources */,
+				0C6C3938AFC77917FE9BA0EB /* ReviewSession.swift in Sources */,
+				04CD3CDB3C9139DFB7D7F8B6 /* ReviewView.swift in Sources */,
+				5E74700BB4E79C5D2262314A /* SQLite.swift in Sources */,
+				9AA0123FBD42F1D7D10C5A36 /* Scheduler.swift in Sources */,
+				6AA3CF3479B862267F97318F /* ShelfWindow.swift in Sources */,
+				D5EEE23B11FD2F2A0CBD0DF7 /* StudySettings.swift in Sources */,
+				D8EFF85943ECF2A1988D76A9 /* TileColor.swift in Sources */,
+				B1593DF6284EC3B0B6364E34 /* Tutorial.swift in Sources */,
+				1A1F3EAEDBAF027107CB58E0 /* debug.c in Sources */,
+				0E5150A343E4669FDBA314F6 /* entropy_common.c in Sources */,
+				ECC35A58DC448584FDB1B474 /* error_private.c in Sources */,
+				16AFB20E6C9FCF3B0781D6F8 /* fse_decompress.c in Sources */,
+				3EED668A798D43F0D8A3049E /* huf_decompress.c in Sources */,
+				9A0AB16FD7B1C44132203549 /* pool.c in Sources */,
+				4B0164F2CA93C50F11385759 /* threading.c in Sources */,
+				99BF3852A799B081CEEAEA3F /* xxhash.c in Sources */,
+				39813A2AE3B6F1155982F6F9 /* zstd_common.c in Sources */,
+				239C83F8E2CD9E911041834E /* zstd_ddict.c in Sources */,
+				8CFF78506990225B4F0107B7 /* zstd_decompress.c in Sources */,
+				1F733054D83A9A73CAAF44C7 /* zstd_decompress_block.c in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		C97CDC56A9E42267B040B2E0 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 9D4D8F719293F0DD1C079C6E /* PikCard */;
+			targetProxy = AA4669467B57F03775E0EB0B /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		5826E12DA878B4D4A573336B /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				4A37FBEA46230ED4EEB781EE /* en */,
+				4EF208D730C7B93E9831F138 /* zh-Hans */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		08EBD574DEDBC088ED6B0F74 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "-";
+				CODE_SIGN_STYLE = Manual;
+				COMBINE_HIDPI_IMAGES = YES;
+				ENABLE_HARDENED_RUNTIME = NO;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"$(inherited)",
+					"ZSTD_DISABLE_ASM=1",
+				);
+				INFOPLIST_FILE = PikCard/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-lsqlite3",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = io.github.houyue9980.pikcard.dev;
+				PRODUCT_NAME = PikCard;
+				SDKROOT = macosx;
+				SWIFT_OBJC_BRIDGING_HEADER = "PikCard/Vendor/PikCard-Bridging-Header.h";
+			};
+			name = Debug;
+		};
+		2F4226F00C317D7BE340179D /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_IDENTITY = "-";
+				CODE_SIGN_STYLE = Manual;
+				COMBINE_HIDPI_IMAGES = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@loader_path/../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = io.github.houyue9980.PikCardTests;
+				SDKROOT = macosx;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/PikCard.app/Contents/MacOS/PikCard";
+			};
+			name = Debug;
+		};
+		6ED0C7ECD7050343B662E3C7 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_IDENTITY = "-";
+				CODE_SIGN_STYLE = Manual;
+				COMBINE_HIDPI_IMAGES = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@loader_path/../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = io.github.houyue9980.PikCardTests;
+				SDKROOT = macosx;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/PikCard.app/Contents/MacOS/PikCard";
+			};
+			name = Release;
+		};
+		71AA9D46C216D27028D56E92 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"$(inherited)",
+					"DEBUG=1",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 15.0;
+				MARKETING_VERSION = 1.0.0;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_DEFAULT_ACTOR_ISOLATION = MainActor;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 6.0;
+			};
+			name = Debug;
+		};
+		A8DFADDA02F305B57586810A /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 15.0;
+				MARKETING_VERSION = 1.0.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_DEFAULT_ACTOR_ISOLATION = MainActor;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_VERSION = 6.0;
+			};
+			name = Release;
+		};
+		F569EF26696A255F8EA62764 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "-";
+				CODE_SIGN_STYLE = Manual;
+				COMBINE_HIDPI_IMAGES = YES;
+				ENABLE_HARDENED_RUNTIME = NO;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"$(inherited)",
+					"ZSTD_DISABLE_ASM=1",
+				);
+				INFOPLIST_FILE = PikCard/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-lsqlite3",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = io.github.houyue9980.pikcard;
+				PRODUCT_NAME = PikCard;
+				SDKROOT = macosx;
+				SWIFT_OBJC_BRIDGING_HEADER = "PikCard/Vendor/PikCard-Bridging-Header.h";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		047F0AC8D6E48D8E8A1B3806 /* Build configuration list for PBXNativeTarget "PikCard" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				08EBD574DEDBC088ED6B0F74 /* Debug */,
+				F569EF26696A255F8EA62764 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		1330CF44F14A2E2CF3692406 /* Build configuration list for PBXNativeTarget "PikCardTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				2F4226F00C317D7BE340179D /* Debug */,
+				6ED0C7ECD7050343B662E3C7 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		E72A1AEBBA80AED4B352F339 /* Build configuration list for PBXProject "PikCard" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				71AA9D46C216D27028D56E92 /* Debug */,
+				A8DFADDA02F305B57586810A /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 96152A61870181AF5D3104C7 /* Project object */;
+}

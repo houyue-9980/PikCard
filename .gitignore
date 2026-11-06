@@ -1,0 +1,22 @@
+# 不存进 git 的文件（自动生成的、能重新下载的、系统垃圾）
+
+# macOS 系统文件
+.DS_Store
+
+# Word 打开文档时产生的临时文件
+~$*
+
+# Node.js 依赖（npm install 就能重新下载）
+node_modules/
+
+# Swift 编译结果
+.build/
+.swiftpm/
+
+# Claude Code 的本地设置
+.claude/
+
+# Xcode 项目由 project.yml 生成，用户个人设置不存
+*.xcodeproj/xcuserdata/
+*.xcodeproj/project.xcworkspace/xcuserdata/
+build/

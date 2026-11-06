@@ -1,0 +1,81 @@
+# Xcode 项目的“配方”。改完运行 `xcodegen` 重新生成 PikCard.xcodeproj
+name: PikCard
+options:
+  bundleIdPrefix: io.github.houyue9980
+  deploymentTarget:
+    macOS: "15.0"
+  createIntermediateGroups: true
+settings:
+  base:
+    SWIFT_VERSION: "6.0"
+    # 默认所有代码都在主线程跑，新手最省心
+    SWIFT_DEFAULT_ACTOR_ISOLATION: MainActor
+    SWIFT_APPROACHABLE_CONCURRENCY: YES
+    MARKETING_VERSION: "1.0.0"
+    CURRENT_PROJECT_VERSION: "1"
+targets:
+  PikCard:
+    type: application
+    platform: macOS
+    sources:
+      - path: PikCard
+        excludes: ["Resources/render", "Vendor/zstd/LICENSE"]
+      # 显示卡片用的网页文件（markdown-it、KaTeX）整个文件夹原样拷进 App
+      - path: PikCard/Resources/render
+        type: folder
+        buildPhase: resources
+    info:
+      path: PikCard/Info.plist
+      properties:
+        CFBundleName: 拾卡
+        CFBundleDisplayName: 拾卡
+        CFBundleDevelopmentRegion: zh-Hans
+        CFBundleLocalizations: [zh-Hans, en]
+        CFBundleShortVersionString: $(MARKETING_VERSION)
+        CFBundleVersion: $(CURRENT_PROJECT_VERSION)
+        LSApplicationCategoryType: public.app-category.education
+        NSHumanReadableCopyright: © 2026 Yue(Clyde) Hou · MIT License
+        # 在访达里双击 .apkg 可以用拾卡打开（导入）
+        CFBundleDocumentTypes:
+          - CFBundleTypeName: Anki Deck Package
+            CFBundleTypeRole: Viewer
+            LSHandlerRank: Alternate
+            CFBundleTypeExtensions: [apkg]
+    settings:
+      base:
+        PRODUCT_NAME: PikCard
+        PRODUCT_BUNDLE_IDENTIFIER: io.github.houyue9980.pikcard
+        ASSETCATALOG_COMPILER_APPICON_NAME: AppIcon
+        # 读 Anki 新版卡组要解压 zstd，用的是官方 C 代码（Vendor/zstd）
+        SWIFT_OBJC_BRIDGING_HEADER: PikCard/Vendor/PikCard-Bridging-Header.h
+        GCC_PREPROCESSOR_DEFINITIONS: ["$(inherited)", "ZSTD_DISABLE_ASM=1"]
+        OTHER_LDFLAGS: ["$(inherited)", "-lsqlite3"]
+        # 第一版不做签名公证，本机用临时签名运行
+        CODE_SIGN_STYLE: Manual
+        CODE_SIGN_IDENTITY: "-"
+        ENABLE_HARDENED_RUNTIME: NO
+      configs:
+        # 开发版用另一个身份：设置和正式版分开存
+        Debug:
+          PRODUCT_BUNDLE_IDENTIFIER: io.github.houyue9980.pikcard.dev
+  PikCardTests:
+    type: bundle.unit-test
+    platform: macOS
+    sources: [PikCardTests]
+    dependencies:
+      - target: PikCard
+    settings:
+      base:
+        CODE_SIGN_STYLE: Manual
+        CODE_SIGN_IDENTITY: "-"
+        GENERATE_INFOPLIST_FILE: YES
+        BUNDLE_LOADER: $(TEST_HOST)
+        TEST_HOST: $(BUILT_PRODUCTS_DIR)/PikCard.app/Contents/MacOS/PikCard
+schemes:
+  PikCard:
+    build:
+      targets:
+        PikCard: all
+        PikCardTests: [test]
+    test:
+      targets: [PikCardTests]

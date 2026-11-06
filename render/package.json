@@ -1,0 +1,12 @@
+{
+  "name": "pikcard-render",
+  "private": true,
+  "description": "卡片显示用到的两个库：markdown-it（Markdown 转网页）和 KaTeX（公式）",
+  "scripts": {
+    "build": "rm -rf ../PikCard/Resources/render/lib && mkdir -p ../PikCard/Resources/render/lib/fonts && cp node_modules/markdown-it/dist/markdown-it.min.js node_modules/katex/dist/katex.min.js node_modules/katex/dist/katex.min.css node_modules/katex/dist/contrib/auto-render.min.js ../PikCard/Resources/render/lib/ && cp node_modules/katex/dist/fonts/*.woff2 ../PikCard/Resources/render/lib/fonts/"
+  },
+  "dependencies": {
+    "katex": "^0.16.47",
+    "markdown-it": "^14.1.0"
+  }
+}
