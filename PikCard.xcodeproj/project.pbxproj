@@ -43,6 +43,7 @@
 		9E57B8705CF98E53240BBE43 /* DeckView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 061BC978D9341CB57F65B1DA /* DeckView.swift */; };
 		B1593DF6284EC3B0B6364E34 /* Tutorial.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A66B36FC1FEC158913D3099 /* Tutorial.swift */; };
 		B4577A0A7BED7FDCCAAD6954 /* CardEditor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55355BA49AE827D68A391B02 /* CardEditor.swift */; };
+		CC1D75D70C12AAEF845894FD /* SecurityTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD2E459F3A4DD7C3471FD288 /* SecurityTests.swift */; };
 		D5EEE23B11FD2F2A0CBD0DF7 /* StudySettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03E65D39771574D1B2C15D2C /* StudySettings.swift */; };
 		D8EE6DAB89D0C7612FDFF510 /* Appearance.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0843E415D503EEDCABB2F1CB /* Appearance.swift */; };
 		D8EFF85943ECF2A1988D76A9 /* TileColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4D3C4B51AEFBFFEA5277E28 /* TileColor.swift */; };
@@ -125,6 +126,7 @@
 		D1D208B4C23E97BB8445EC11 /* DelimitedText.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DelimitedText.swift; sourceTree = "<group>"; };
 		D4D3C4B51AEFBFFEA5277E28 /* TileColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TileColor.swift; sourceTree = "<group>"; };
 		DC285E960448D9B5DF4F1BAA /* xxhash.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = xxhash.h; sourceTree = "<group>"; };
+		DD2E459F3A4DD7C3471FD288 /* SecurityTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecurityTests.swift; sourceTree = "<group>"; };
 		DF17A7F69A13D54F8B5DED5E /* huf.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = huf.h; sourceTree = "<group>"; };
 		E5C45AF04417448EE32C8E36 /* zstd_decompress_block.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = zstd_decompress_block.h; sourceTree = "<group>"; };
 		EFF0A07715C115DAC55EED0C /* ReviewView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewView.swift; sourceTree = "<group>"; };
@@ -152,6 +154,7 @@
 			children = (
 				F4FB567AD854DD25CF715DE1 /* CardFileTests.swift */,
 				37C1B9BC125140279ABA622A /* ExchangeTests.swift */,
+				DD2E459F3A4DD7C3471FD288 /* SecurityTests.swift */,
 			);
 			path = PikCardTests;
 			sourceTree = "<group>";
@@ -412,6 +415,7 @@
 			files = (
 				7EF29086398D69613B865E4D /* CardFileTests.swift in Sources */,
 				4718FE2C9B6D6C844FB54700 /* ExchangeTests.swift in Sources */,
+				CC1D75D70C12AAEF845894FD /* SecurityTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -583,7 +587,7 @@
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 2;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
@@ -602,7 +606,7 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				MACOSX_DEPLOYMENT_TARGET = 15.0;
-				MARKETING_VERSION = 1.0.0;
+				MARKETING_VERSION = 1.0.1;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -650,7 +654,7 @@
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 2;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
@@ -663,7 +667,7 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				MACOSX_DEPLOYMENT_TARGET = 15.0;
-				MARKETING_VERSION = 1.0.0;
+				MARKETING_VERSION = 1.0.1;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";

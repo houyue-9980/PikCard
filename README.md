@@ -11,7 +11,7 @@
 
 <p align="center">
   <a href="https://github.com/houyue-9980/PikCard/releases/latest"><b>下载 Download</b></a>
-  &nbsp;·&nbsp; 当前版本 Version <b>1.0.0</b>
+  &nbsp;·&nbsp; 当前版本 Version <b>1.0.1</b>
   &nbsp;·&nbsp; macOS 15+
   <br><br>
   <a href="#中文">中文</a> &nbsp;|&nbsp; <a href="#english">English</a>
@@ -69,7 +69,7 @@
 
 ### 安装
 
-1. 到 [Releases](https://github.com/houyue-9980/PikCard/releases/latest) 下载 `PikCard-1.0.0.dmg`，打开后把 **PikCard** 拖进“应用程序”
+1. 到 [Releases](https://github.com/houyue-9980/PikCard/releases/latest) 下载 `PikCard-1.0.1.dmg`，打开后把 **PikCard** 拖进“应用程序”
 2. 拾卡没有经过苹果公证。第一次打开时请在“应用程序”里**右键点击 PikCard → 打开**，再在弹窗里点“打开”。之后就能正常双击打开了。如果没有“打开”按钮：打开 **系统设置 → 隐私与安全性**，在下面找到关于 PikCard 的提示，点“仍要打开”
 3. 第一次使用时选一个卡片文件夹。选空文件夹的话，会放上一个使用教程卡组
 
@@ -153,7 +153,7 @@ When its determinant is not 0.
 
 ### Install
 
-1. Download `PikCard-1.0.0.dmg` from [Releases](https://github.com/houyue-9980/PikCard/releases/latest), open it and drag **PikCard** into Applications
+1. Download `PikCard-1.0.1.dmg` from [Releases](https://github.com/houyue-9980/PikCard/releases/latest), open it and drag **PikCard** into Applications
 2. PikCard isn’t notarized by Apple. The first time, **right-click PikCard in Applications → Open**, then click Open. After that it opens normally. No Open button? Go to **System Settings → Privacy & Security** and click “Open Anyway” next to the message about PikCard
 3. Choose a cards folder. If it’s empty, PikCard adds a tutorial deck
 

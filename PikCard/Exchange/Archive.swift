@@ -4,9 +4,44 @@
 import Foundation
 
 enum Zip {
+    /// 解开压缩包。安全：先看一遍里面的文件名，有往外跳的路径（../、/开头）就不解
     static func extract(_ archive: URL, to folder: URL) throws {
+        for name in try entries(of: archive) {
+            let parts = name.split(separator: "/", omittingEmptySubsequences: false)
+            if name.hasPrefix("/") || name.hasPrefix("~") || parts.contains("..") {
+                throw ArchiveError(message: L("压缩包里有不安全的文件路径，已停止导入：\(name)",
+                                              "The archive contains an unsafe file path, import stopped: \(name)"))
+            }
+        }
         try FileManager.default.createDirectory(at: folder, withIntermediateDirectories: true)
         try run(["-x", "-k", archive.path, folder.path])
+    }
+
+    /// 压缩包里所有文件的名字（用系统自带的 zipinfo）
+    static func entries(of archive: URL) throws -> [String] {
+        let process = Process()
+        process.executableURL = URL(fileURLWithPath: "/usr/bin/zipinfo")
+        process.arguments = ["-1", archive.path]
+        let output = Pipe()
+        process.standardOutput = output
+        process.standardError = Pipe()
+        try process.run()
+        let data = output.fileHandleForReading.readDataToEndOfFile()
+        process.waitUntilExit()
+        guard process.terminationStatus == 0 else {
+            throw ArchiveError(message: L("这不是一个有效的压缩包。", "This isn't a valid archive."))
+        }
+        return String(decoding: data, as: UTF8.self).split(separator: "\n").map(String.init)
+    }
+
+    /// 解出来的一个普通文件（不是“快捷方式”，也确实在解压文件夹里面）。不是就返回 nil
+    static func safeFile(_ name: String, in folder: URL) -> URL? {
+        let url = folder.appendingPathComponent(name)
+        guard let values = try? url.resourceValues(forKeys: [.isSymbolicLinkKey, .isRegularFileKey]),
+              values.isSymbolicLink != true, values.isRegularFile == true else { return nil }
+        let base = folder.resolvingSymlinksInPath().standardizedFileURL.path + "/"
+        guard url.resolvingSymlinksInPath().standardizedFileURL.path.hasPrefix(base) else { return nil }
+        return url
     }
 
     /// 把文件夹里的东西（不含文件夹本身）打成 zip

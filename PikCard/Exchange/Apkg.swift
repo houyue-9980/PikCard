@@ -22,15 +22,16 @@ enum ApkgReader {
         let temp = FileManager.default.temporaryDirectory.appendingPathComponent("pikcard-import-\(UUID().uuidString)")
         try Zip.extract(url, to: temp)
 
-        // 找数据库：新格式优先（新格式的包里也有一个只写着“请升级”的旧数据库）
+        // 找数据库：新格式优先（新格式的包里也有一个只写着“请升级”的旧数据库）。
+        // 只读真正解出来的普通文件，指向别处的“快捷方式”一律不碰
         let dbURL: URL
-        if let data = try? Data(contentsOf: temp.appendingPathComponent("collection.anki21b")) {
-            dbURL = temp.appendingPathComponent("collection.sqlite")
+        if let file = Zip.safeFile("collection.anki21b", in: temp), let data = try? Data(contentsOf: file) {
+            dbURL = temp.appendingPathComponent("pikcard-collection.sqlite")
             try Zstd.decompress(data).write(to: dbURL)
-        } else if FileManager.default.fileExists(atPath: temp.appendingPathComponent("collection.anki21").path) {
-            dbURL = temp.appendingPathComponent("collection.anki21")
-        } else if FileManager.default.fileExists(atPath: temp.appendingPathComponent("collection.anki2").path) {
-            dbURL = temp.appendingPathComponent("collection.anki2")
+        } else if let file = Zip.safeFile("collection.anki21", in: temp) {
+            dbURL = file
+        } else if let file = Zip.safeFile("collection.anki2", in: temp) {
+            dbURL = file
         } else {
             throw ArchiveError(message: L("这不是一个 Anki 卡组包（里面没有 collection 数据库）。", "This isn't an Anki package (no collection database inside)."))
         }
@@ -118,7 +119,8 @@ enum ApkgReader {
 
     /// 文件名 → 解压出来的文件
     private static func readMedia(_ folder: URL) throws -> [String: URL] {
-        guard let data = try? Data(contentsOf: folder.appendingPathComponent("media")), !data.isEmpty else { return [:] }
+        guard let mediaFile = Zip.safeFile("media", in: folder),
+              let data = try? Data(contentsOf: mediaFile), !data.isEmpty else { return [:] }
         var index: [String: String] = [:] // 包里的文件名（"0"）→ 真名
         if Zstd.isCompressed(data) {
             // 新格式：MediaEntries { repeated MediaEntry entries = 1 }，MediaEntry { name = 1; legacy_zip_filename = 255 }
@@ -142,8 +144,8 @@ enum ApkgReader {
 
         var result: [String: URL] = [:]
         for (zipName, name) in index {
-            let file = folder.appendingPathComponent(zipName)
-            guard let content = try? Data(contentsOf: file) else { continue }
+            guard let file = Zip.safeFile(ApkgReader.safeMediaName(zipName), in: folder),
+                  let content = try? Data(contentsOf: file) else { continue }
             let safe = safeMediaName(name)
             let target = folder.appendingPathComponent("media-files", isDirectory: true).appendingPathComponent(safe)
             try FileManager.default.createDirectory(at: target.deletingLastPathComponent(), withIntermediateDirectories: true)

@@ -72,15 +72,17 @@ struct CardWebView: NSViewRepresentable {
             flush()
         }
 
-        /// 卡片里的链接用浏览器打开，不在卡片里跳走
+        /// 只允许打开拾卡自己的卡片页。卡片里点的网址交给浏览器；其他跳转（比如卡片里的脚本想换页）一律不许
         func webView(_ webView: WKWebView, decidePolicyFor action: WKNavigationAction,
                      decisionHandler: @escaping @MainActor (WKNavigationActionPolicy) -> Void) {
-            if action.navigationType == .linkActivated, let url = action.request.url {
-                NSWorkspace.shared.open(url)
-                decisionHandler(.cancel)
-            } else {
-                decisionHandler(.allow)
+            guard let url = action.request.url else { return decisionHandler(.cancel) }
+            if url.scheme == "pikcard", url.host == "app", url.path == "/card.html", action.targetFrame?.isMainFrame == true {
+                return decisionHandler(.allow)
             }
+            if action.navigationType == .linkActivated, ["http", "https", "mailto"].contains(url.scheme?.lowercased() ?? "") {
+                NSWorkspace.shared.open(url)
+            }
+            decisionHandler(.cancel)
         }
     }
 }
@@ -106,12 +108,18 @@ final class CardFiles: NSObject, WKURLSchemeHandler {
             return
         }
         let mime = UTType(filenameExtension: file.pathExtension)?.preferredMIMEType ?? "application/octet-stream"
-        let response = HTTPURLResponse(url: url, statusCode: 200, httpVersion: "HTTP/1.1",
-                                       headerFields: ["Content-Type": mime, "Content-Length": "\(data.count)"])!
+        var headers = ["Content-Type": mime, "Content-Length": "\(data.count)"]
+        // 安全规则（和 card.html 里写的一样）：卡片内容不能运行自己的脚本、不能联网发数据
+        if file.pathExtension == "html" { headers["Content-Security-Policy"] = Self.contentSecurityPolicy }
+        let response = HTTPURLResponse(url: url, statusCode: 200, httpVersion: "HTTP/1.1", headerFields: headers)!
         task.didReceive(response)
         task.didReceive(data)
         task.didFinish()
     }
 
     func webView(_ webView: WKWebView, stop task: any WKURLSchemeTask) {}
+
+    static let contentSecurityPolicy = "default-src 'none'; script-src 'self' pikcard:; style-src pikcard: 'unsafe-inline'; "
+        + "font-src pikcard: data:; img-src pikcard: data: https: http:; media-src pikcard: data: https: http:; "
+        + "connect-src 'none'; frame-src 'none'; object-src 'none'; form-action 'none'; base-uri 'none'"
 }
