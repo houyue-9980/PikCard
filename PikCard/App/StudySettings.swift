@@ -22,7 +22,6 @@ final class StudySettings {
     private let defaults = UserDefaults.standard
 
     var answerMode: AnswerMode { didSet { defaults.set(answerMode.rawValue, forKey: "answerMode") } }
-    var newPerDay: Int { didSet { defaults.set(newPerDay, forKey: "newPerDay") } }
     /// 希望复习时还记得的把握（0.80–0.97）。越高复习越勤
     var retention: Double { didSet { defaults.set(retention, forKey: "retention") } }
     /// 按钮下面显示下次复习的间隔
@@ -30,7 +29,6 @@ final class StudySettings {
 
     private init() {
         answerMode = defaults.string(forKey: "answerMode").flatMap(AnswerMode.init(rawValue:)) ?? .twoButtons
-        newPerDay = defaults.object(forKey: "newPerDay") as? Int ?? 20
         retention = defaults.object(forKey: "retention") as? Double ?? 0.9
         showIntervals = defaults.object(forKey: "showIntervals") as? Bool ?? true
     }
@@ -69,9 +67,6 @@ struct StudySettingsView: View {
 
             Divider().padding(.vertical, 4)
 
-            Stepper(value: $settings.newPerDay, in: 0...500, step: 5) {
-                Text(L("每天学新卡：\(settings.newPerDay) 张", "New cards per day: \(settings.newPerDay)"))
-            }
             VStack(alignment: .leading, spacing: 4) {
                 Slider(value: $settings.retention, in: 0.80...0.97, step: 0.01) {
                     Text(L("记忆把握：\(Int((settings.retention * 100).rounded()))%", "Target recall: \(Int((settings.retention * 100).rounded()))%"))

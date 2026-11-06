@@ -102,11 +102,9 @@ final class Deck: Identifiable {
             .sorted { progress[$0.id].due < progress[$1.id].due }
     }
 
-    /// 今天还能学的新卡（受每天新卡数限制），按卡片顺序
-    func newCards(tag: String? = nil, now: Date = .now) -> [Card] {
-        let learnedToday = progress.days[StudyDay.key(for: now)]?.newCards ?? 0
-        let left = max(0, StudySettings.shared.newPerDay - learnedToday)
-        return Array(cards(tag: tag).filter { progress[$0.id].state == .new }.prefix(left))
+    /// 还没学过的新卡（不限每天几张），按卡片顺序
+    func newCards(tag: String? = nil) -> [Card] {
+        cards(tag: tag).filter { progress[$0.id].state == .new }
     }
 
     var wrongCards: [Card] { cards.filter { progress[$0.id].wrong } }
